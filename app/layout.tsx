@@ -38,9 +38,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <ModeToggle />
         </ThemeProvider>
         <Toaster richColors />
-        <ModeToggle />
       </body>
     </html>
   );
