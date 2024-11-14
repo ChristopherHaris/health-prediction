@@ -32,19 +32,3 @@ Follow these steps to install and run the application:
    ```
 
 The application will be accessible at [localhost](http://localhost:3000/).
-
-## How to Build the Application
-
-1. **Build Docker Image:**
-   ```bash
-   npm run build
-   ```
-
-      a folder in `./next` will be created, and the optimised build from the app will be built inside it.
-
-2. **Run the Application:**
-
-   ```bash
-   node .next/standalone/server.js
-   ```
-
