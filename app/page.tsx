@@ -9,6 +9,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -21,9 +29,12 @@ import {
   Users,
   TrendingUp,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
+
   const onClickQuickCheckup = () => {
     router.push("/quickcheckup");
   };
@@ -32,8 +43,45 @@ export default function Home() {
     router.push("/fullcheckup");
   };
 
+  useEffect(() => {
+    const disclaimerShown = localStorage.getItem("disclaimerShown");
+    if (!disclaimerShown) {
+      setShowDisclaimer(true);
+    }
+  }, []);
+
+  const handleCloseDisclaimer = () => {
+    setShowDisclaimer(false);
+    localStorage.setItem("disclaimerShown", "true"); // Mark disclaimer as shown
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
+      <Dialog open={showDisclaimer} onOpenChange={setShowDisclaimer}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader className="space-y-4">
+            <DialogTitle className="font-bold text-xl my-2">Syarat Penggunaan dan Disclaimer</DialogTitle>
+            <DialogDescription>
+              MediScope adalah alat bantu prediksi kesehatan berbasis data.
+              Hasil prediksi hanya untuk referensi awal, bukan sebagai diagnosis
+              medis resmi.
+            </DialogDescription>
+            <DialogDescription>
+              Kami tidak bertanggung jawab atas segala kerugian yang timbul dari
+              penggunaan aplikasi ini. Untuk diagnosis dan pengobatan yang
+              akurat, konsultasikan hasilnya dengan tenaga medis profesional.
+            </DialogDescription>
+            <DialogDescription>
+              Jika Anda tenaga medis profesional, gunakan aplikasi ini hanya
+              sebagai acuan atau diagnosa awal. Dengan melanjutkan, Anda setuju
+              untuk memahami dan menerima syarat ini.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={handleCloseDisclaimer}>Setuju</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <header className="border-b">
         <div className=" flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-6">
@@ -75,13 +123,16 @@ export default function Home() {
         </div>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white">
+        <section className="w-full py-12 md:py-20 lg:py-24 light:bg-gradient-to-b from-blue-50 to-white">
           <div className="px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_600px] lg:gap-12 xl:grid-cols-[1fr_800px]">
               <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                <div className="space-y-4">
+                  <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl xl:text-3xl/none">
                     Pantau resiko kesehatan anda!
+                  </h1>
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                    Medi<span className="text-blue-500">Scope</span>
                   </h1>
                   <p className="max-w-[600px] text-gray-500 md:text-xl">
                     Solusi paling jelas ada kesehatan yang anda perlukan.
@@ -94,9 +145,9 @@ export default function Home() {
               </div>
               <Image
                 alt="Medical Professionals"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-contain object-center"
                 height="600"
-                src="https://placeholder.pics/svg/800x600"
+                src="https://utfs.io/f/d8MjW7okoChM3nEntrbHmagBclPf5iVxyuFOTWKZ6YXDR1SG"
                 width="800"
               />
             </div>
@@ -143,7 +194,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
+        <section className="w-full py-12 md:py-24 lg:py-32 light:bg-gray-50">
           <div className=" px-4 md:px-6">
             <h2 className="text-2xl font-bold text-center mb-12">
               Pertanyaan yang Sering Diajukan
@@ -153,8 +204,10 @@ export default function Home() {
                 <AccordionItem value="item-1">
                   <AccordionTrigger>Apa Itu MediScope?</AccordionTrigger>
                   <AccordionContent>
-                    MediScope adalah platform kesehatan digital yang membantu
-                    Anda memantau kesehatan dengan mudah dan efektif.
+                    MediScope adalah aplikasi prediksi kesehatan berbasis data
+                    yang memberikan estimasi potensi kondisi kesehatan pengguna
+                    berdasarkan data yang dimasukkan, seperti tekanan darah,
+                    kadar glukosa, dan gejala lainnya.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
@@ -163,17 +216,50 @@ export default function Home() {
                     medis?
                   </AccordionTrigger>
                   <AccordionContent>
-                    Hasil dari MediScope hanya bersifat indikatif dan tidak
-                    menggantikan diagnosis dokter.
+                    Tidak. Hasil MediScope hanya sebagai referensi awal dan
+                    bukan diagnosis medis resmi. Selalu konsultasikan dengan
+                    tenaga medis profesional untuk diagnosis yang akurat.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
                   <AccordionTrigger>
-                    How to get appointment for emergency cases?
+                    Data apa saja yang diperlukan untuk membuat prediksi?
                   </AccordionTrigger>
                   <AccordionContent>
-                    Untuk kasus darurat, silakan hubungi nomor emergency kami
-                    yang tersedia 24/7.
+                    MediScope membutuhkan data dasar seperti usia, jenis
+                    kelamin, BMI, tekanan darah, kadar glukosa, riwayat
+                    kesehatan, dan gejala yang dialami untuk melakukan prediksi
+                    awal.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-4">
+                  <AccordionTrigger>
+                    Apakah data pengguna disimpan di server?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Tidak, semua data hanya diproses untuk analisis sementara
+                    dan tidak disimpan dalam server kami, menjaga privasi dan
+                    keamanan informasi pengguna.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-5">
+                  <AccordionTrigger>
+                    Apakah MediScope menjamin hasil yang akurat?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Hasil yang diberikan MediScope adalah prediksi berbasis data
+                    dan bukan jaminan diagnosis. Untuk penanganan lebih lanjut
+                    dan pengobatan, konsultasikan hasil dengan dokter.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-6">
+                  <AccordionTrigger>
+                    Bagaimana cara menggunakan MediScope?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Masukkan informasi yang diminta pada kolom-kolom yang
+                    tersedia, pilih kondisi kesehatan yang ingin diperiksa, dan
+                    klik untuk mendapatkan hasil prediksi.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
