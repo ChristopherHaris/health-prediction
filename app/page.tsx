@@ -159,39 +159,43 @@ export default function Home() {
               Atau, Pilih Penyakit Yang Ingin Anda Periksa
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <Card className="p-4 flex flex-col items-center gap-2">
-                <Building2 className="h-8 w-8 text-blue-500" />
-                <span className="text-sm font-medium">Penyakit Jantung</span>
-              </Card>
-              <Card className="p-4 flex flex-col items-center gap-2">
-                <Heart className="h-8 w-8 text-blue-500" />
-                <span className="text-sm font-medium">Diabetes</span>
-              </Card>
-              <Card className="p-4 flex flex-col items-center gap-2">
-                <Hospital className="h-8 w-8 text-blue-500" />
-                <span className="text-sm font-medium">Paru</span>
-              </Card>
-              <Card className="p-4 flex flex-col items-center gap-2">
-                <Activity className="h-8 w-8 text-blue-500" />
-                <span className="text-sm font-medium">Tekanan Darah</span>
-              </Card>
-              <Card className="p-4 flex flex-col items-center gap-2">
-                <Syringe className="h-8 w-8 text-blue-500" />
-                <span className="text-sm font-medium">Alergi</span>
-              </Card>
-              <Card className="p-4 flex flex-col items-center gap-2">
-                <Shield className="h-8 w-8 text-blue-500" />
-                <span className="text-sm font-medium">Tuberculosis</span>
-              </Card>
-              <Card className="p-4 flex flex-col items-center gap-2">
-                <Users className="h-8 w-8 text-blue-500" />
-                <span className="text-sm font-medium">Hepatitis</span>
-              </Card>
-              <Card className="p-4 flex flex-col items-center gap-2">
-                <TrendingUp className="h-8 w-8 text-blue-500" />
-                <span className="text-sm font-medium">Arthritis</span>
-              </Card>
-            </div>
+  <Card className="p-4 flex flex-col items-center gap-2">
+    <Building2 className="h-8 w-8 text-blue-500" />
+    <span className="text-sm font-medium">Penyakit Jantung</span>
+  </Card>
+  <Card
+    className="p-4 flex flex-col items-center gap-2 cursor-pointer"
+    onClick={() => router.push("/diabetes")}
+  >
+    <Heart className="h-8 w-8 text-blue-500" />
+    <span className="text-sm font-medium">Diabetes</span>
+  </Card>
+  <Card className="p-4 flex flex-col items-center gap-2">
+    <Hospital className="h-8 w-8 text-blue-500" />
+    <span className="text-sm font-medium">Paru</span>
+  </Card>
+  <Card className="p-4 flex flex-col items-center gap-2">
+    <Activity className="h-8 w-8 text-blue-500" />
+    <span className="text-sm font-medium">Tekanan Darah</span>
+  </Card>
+  <Card className="p-4 flex flex-col items-center gap-2">
+    <Syringe className="h-8 w-8 text-blue-500" />
+    <span className="text-sm font-medium">Alergi</span>
+  </Card>
+  <Card className="p-4 flex flex-col items-center gap-2">
+    <Shield className="h-8 w-8 text-blue-500" />
+    <span className="text-sm font-medium">Tuberculosis</span>
+  </Card>
+  <Card className="p-4 flex flex-col items-center gap-2">
+    <Users className="h-8 w-8 text-blue-500" />
+    <span className="text-sm font-medium">Hepatitis</span>
+  </Card>
+  <Card className="p-4 flex flex-col items-center gap-2">
+    <TrendingUp className="h-8 w-8 text-blue-500" />
+    <span className="text-sm font-medium">Arthritis</span>
+  </Card>
+</div>
+
           </div>
         </section>
         <section className="w-full py-12 md:py-24 lg:py-32 light:bg-gray-50">
